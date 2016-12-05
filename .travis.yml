@@ -11,19 +11,23 @@ addons:
     - cmake
     - gcc-4.8
     - g++-4.8
-    - clang
+    - cppcheck
+#    - clang
 
 compiler:
   - gcc
-  - clang
+#  - clang
 
 os:
   - linux
   - osx
 
 env:
-  - BUILD_TYPE=Debug
-  - BUILD_TYPE=Release
+  - BUILD_TYPE=Debug ANALYZE=false
+  - BUILD_TYPE=Release ANALYZE=false
+#  - BUILD_TYPE=Debug ANALYZE=true
+#  - TEST_DIR=140/labs
+#  - TEST_DIR=140/labs/lab2
 
 notifications:
   email:
@@ -37,9 +41,11 @@ install:
   - BUILD_DIR=$PWD/builds
   - mkdir -p ${BUILD_DIR}
   - cd ${BUILD_DIR}
-  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
-  - cd ${BUILD_DIR}
-  - make
+  - sh ../.travis.sh
+#  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+#  - cmake -DCMAKE_BUILD_TYPE=Debug ../$TEST_DIR
+#  - cd ${BUILD_DIR}
+#  - make
 
 before_script:
   # verify installed versions
@@ -49,12 +55,19 @@ before_script:
   - g++ -v
   - which g++-4.8
   - g++-4.8 -v
-  - which clang
-  - clang -v
+#  - which clang
+#  - clang -v
+#  - ls -l
+#  - ls -l bin/
+#  - ls -l bin/140/
+#  - ls -l lab2/
+#  - ls -l lab1/
 
 script:
   # build and test
-  - ctest -V
+#  - cd ${BUILD_DIR}/${TEST_DIR} # doesn't work...
+  - if [ $ANALYZE = "false" ]; then ctest --timeout 120 -V; fi
+#  - ctest --timeout 120 -V
 
 # deploy:
 #   provider: releases
