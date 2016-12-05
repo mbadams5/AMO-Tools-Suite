@@ -25,7 +25,7 @@ os:
 env:
   - BUILD_TYPE=Debug ANALYZE=false
   - BUILD_TYPE=Release ANALYZE=false
-#  - BUILD_TYPE=Debug ANALYZE=true
+  - BUILD_TYPE=Debug ANALYZE=true
 #  - TEST_DIR=140/labs
 #  - TEST_DIR=140/labs/lab2
 
