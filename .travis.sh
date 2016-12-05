@@ -10,7 +10,7 @@ if [ $ANALYZE = "true" ]; then
         cd ..
         #cppcheck --help
         cppcheck --template "{file}({line}): {severity} ({id}): {message}" \
-            --enable=style --force --std=c++03 \
+            --enable=style --force --std=c++11 \
             --inline-suppr \
             src/ 2> cppcheck.txt
         if [ -s cppcheck.txt ]; then
